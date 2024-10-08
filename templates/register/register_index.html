@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% block content %}
+<form method="post" action="{{ url_for('register') }}">
+    <div id="register-form" class="w-25 margin-top-xl container square-box justify-content-center align-items-center">
+        <div class="mb-3">
+            <label for="registerEmailInput" class="form-label">Email</label>
+            <input type="text"
+                   class="form-control {% if 'email_validated' in validation_status and not validation_status['email_validated']: %} is-invalid {% endif %}"
+                   id="registerEmailInput" aria-describedby="emailHelp" name="registerInput[]"
+                   placeholder="Please Enter Your Email Address"
+                   value="{% if 'email' in validation_status: %}{{validation_status['email']}}{% endif %}">
+            {% if 'email_validated' in validation_status and not validation_status['email_validated']: %}
+            <div class="invalid-feedback">
+                <span class="text-danger">Please provide a valid email. <br>E.g. johndoe@gmail.com</span>
+            </div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="registerPasswordInput" class="form-label">Password</label>
+            <input type="password"
+                   class="form-control {% if 'password_validated' in validation_status and not validation_status['password_validated']: %} is-invalid {% endif %}"
+                   id="registerPasswordInput" name="registerInput[]" placeholder="Please Enter Your Password"
+                   value="{% if 'password' in validation_status: %}{{validation_status['password']}}{% endif %}">
+
+            <div class="invalid-feedback">
+                {% if 'password_validated' in validation_status and not validation_status['password_validated']: %}
+                <span class="text-danger">Please provide a password.</span>
+                <ul class="text-danger">
+                    <li>at least eight characters.</li>
+                    <li>uppercase letters: A-Z</li>
+                    <li>lowercase letters: a-z</li>
+                    <li>numbers: 0-9</li>
+                    <li>any of the special characters: @#$%?^&+=</li>
+                </ul>
+                {% endif %}
+            </div>
+            {% if 'user_exists' in validation_status and validation_status['user_exists']: %}
+                <span class="text-danger">This email already exists in the system. Please enter another email.</span>
+            {% endif %}
+            {% if 'error_message' in validation_status: %}
+                <span class="text-danger">{{ validation_status['error_message'] }}</span>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <p>Already have an account? <a class="link-opacity-100" href="{{ url_for('login') }}">Sign In</a></p>
+        </div>
+        <button id="register-submit" type="submit" class="btn btn-primary">Register</button>
+    </div>
+</form>
+{% endblock %}

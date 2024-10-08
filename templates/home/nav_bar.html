@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block content %}
+<nav class="navbar navbar-expand-sm bg-light justify-content-center align-items-center">
+    <div class="container-fluid justify-content-center align-items-center">
+        <!-- Links -->
+        <ul class="navbar-nav">
+            {% if email: %}
+                <li id="greeting-li" class="nav-item">
+                    <p id="greeting-p">Welcome, {{ email }}</p>
+                </li>
+            {%endif%}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('home', email = email) }}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Shop</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Upload</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% block home_content %}{% endblock %}
+{% block upload_content %}{% endblock %}
+{% endblock %}

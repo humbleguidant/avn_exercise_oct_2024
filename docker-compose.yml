@@ -1,19 +1,28 @@
 services:
-  web:
+  flask-app:
     build: .
     command: python -u app.py
     ports:
       - "5000:5000"
     volumes:
       - .:/app
-    links:
+    networks:
+      - my-network
+    depends_on:
       - db
   db:
     image: mongo:latest
-    hostname: mongodb_server
+    hostname: ${MONGODB_SERVER}
     environment:
-      - MONGO_INITDB_DATABASE=trading_card_shop_db
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=pass
+      - MONGO_INITDB_DATABASE=${MONGODB_DATABASE}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASS}
+    networks:
+      - my-network
+    volumes:
+      - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
     ports:
-      - 27017:27017
+      - "27017:27017"
+
+networks:
+     my-network:

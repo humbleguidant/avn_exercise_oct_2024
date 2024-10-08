@@ -1,0 +1,84 @@
+{% extends 'home/nav_bar.html' %}
+{% block home_content %}
+{% if 'has_cards' in data and data['has_cards']: %}
+<div class="row justify-content-center align-items-center">
+    <div class="col-sm-6 card-block">
+        <div class="card">
+            <img src="#" class="card-img-top" alt="#">
+            <div class="card-body">
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <h5 class="card-title">$9.99</h5>
+                <a href="#" class="btn btn-primary">Update</a>
+                <a href="#" class="btn btn-danger delete-card-button">Delete</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 card-block">
+        <div class="card">
+            <img src="#" class="card-img-top" alt="#">
+            <div class="card-body">
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <h5 class="card-title">$7.99</h5>
+                <a href="#" class="btn btn-primary">Update</a>
+                <a href="#" class="btn btn-danger delete-card-button">Delete</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 card-block">
+        <div class="card">
+            <img src="#" class="card-img-top" alt="#">
+            <div class="card-body">
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <h5 class="card-title">$7.99</h5>
+                <a href="#" class="btn btn-primary">Update</a>
+                <a href="#" class="btn btn-danger delete-card-button">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row justify-content-center align-items-center">
+    <div class="col-sm-6 card-block">
+        <div class="card">
+            <img src="#" class="card-img-top" alt="#">
+            <div class="card-body">
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <h5 class="card-title">$9.99</h5>
+                <a href="#" class="btn btn-primary">Update</a>
+                <a href="#" class="btn btn-danger delete-card-button">Delete</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 card-block">
+        <div class="card">
+            <img src="#" class="card-img-top" alt="#">
+            <div class="card-body">
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <h5 class="card-title">$7.99</h5>
+                <a href="#" class="btn btn-primary">Update</a>
+                <a href="#" class="btn btn-danger delete-card-button">Delete</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 card-block">
+        <div class="card">
+            <img src="#" class="card-img-top" alt="#">
+            <div class="card-body">
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <h5 class="card-title">$7.99</h5>
+                <a href="#" class="btn btn-primary">Update</a>
+                <a href="#" class="btn btn-danger delete-card-button">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div id="no-cards-available-message-div" class="row justify-content-center align-items-center text-center">
+    {% if 'error_message' in data %}
+    <h5>{{ data['error_message'] }}</h5>
+    {% else %}
+    <h5>You have no cards available. You can create one <a class="link-opacity-100" href="#">here</a></h5>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock%}
