@@ -27,6 +27,7 @@ class UserAuthController:
         # if user is accessing register page then load page
         return render_template('register/register_index.html', validation_status = {})
 
+#   Login functionality
     def login(self, request):
         # if user is logging in then get the user from the database
         if request.method == "POST":
@@ -57,7 +58,8 @@ class UserAuthController:
 
     #check if user is logged in
     def is_logged_in(self, request):
-        # if user is logged in then get the trading cards associated with the logged in user
+        # if user is logged in then get the trading cards uploaded by the logged in user
+        # and get the total number of shopping cart items if there are any
         if 'email' in session and request.args.get('email') == session['email']:
             email = session['email']
             shoppingCart = ShoppingCart()

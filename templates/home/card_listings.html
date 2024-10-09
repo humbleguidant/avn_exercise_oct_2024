@@ -22,8 +22,8 @@
                         {% endif %}
                         {% if ('for_shop' in data and not data['for_shop']) and ('for_shopping_cart' in data and not data['for_shopping_cart']): %}
                             <a
-                               class="btn btn-danger delete-card-button delete-card-from-shop-btn"
-                               data-id="{{ card['id'] }}" data-email="{{ email }}">Delete</a>
+                               class="btn btn-danger delete-card-button delete-card-from-shop-button"
+                               data-id="{{ card['id'] }}" data-email="{{ email }}" data-name="{{ card['file_name'] }}">Delete</a>
                         {% endif %}
                         {% if 'for_shopping_cart' in data and data['for_shopping_cart']: %}
                             <a data-id="{{ card['id'] }}" data-email="{{ email }}"

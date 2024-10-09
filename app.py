@@ -66,9 +66,10 @@ def remove_item_from_cart(email, card_id):
     return shoppingCarts.update_cart(email, card_id, False)
 
 # Post request to delete card entirely
-@app.route('/remove_card_from_shop/<email>/<card_id>', methods=['POST'])
-def remove_card_from_shop(email, card_id):
-    return tradingCards.remove_card_from_shop(email, card_id)
+@app.route('/remove_card_from_shop/<email>/<card_id>/<file_name>', methods=['POST'])
+def remove_card_from_shop(email, card_id, file_name):
+    return tradingCards.remove_card_from_shop(email, card_id, file_name, app)
 
+# Run application
 if __name__=='__main__':
     app.run(host="0.0.0.0", port=5000)
