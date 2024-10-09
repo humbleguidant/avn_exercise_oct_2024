@@ -1,0 +1,51 @@
+{% extends 'home/nav_bar.html' %}
+{% block sub_content %}
+{% if 'has_cards' in data and data['has_cards']: %}
+    {% for card in data['cards']: %}
+        {% if card['table_index'] == 0: %}
+        <div class="card-listing row justify-content-center">
+        {% endif %}
+            <div class=" col-4 col-sm-6 card-block">
+                <div class="card">
+                    <img src="{{ url_for('static', filename=card['file_name']) }}" class="card-img-top image-container" alt="#">
+                    <div class="card-body">
+                        <p class="card-text">Description: {{ card['description'] }}</p>
+                        {% if ('for_shop' in data and data['for_shop']) or ('for_shopping_cart' in data and data['for_shopping_cart']): %}
+                            <p class="card-text">Uploaded by: {{ card['email'] }}</p>
+                        {% endif %}
+                        <h5 class="card-title">${{ card['price'] }}</h5>
+                        {% if email != card['email']: %}
+                            {% if 'for_shop' in data and data['for_shop']: %}
+                            <a data-id="{{ card['id'] }}" data-email="{{ email }}"
+                               class="btn btn-primary add-to-cart-button">Add to Cart</a>
+                            {% endif %}
+                        {% endif %}
+                        {% if ('for_shop' in data and not data['for_shop']) and ('for_shopping_cart' in data and not data['for_shopping_cart']): %}
+                            <a
+                               class="btn btn-danger delete-card-button delete-card-from-shop-btn"
+                               data-id="{{ card['id'] }}" data-email="{{ email }}">Delete</a>
+                        {% endif %}
+                        {% if 'for_shopping_cart' in data and data['for_shopping_cart']: %}
+                            <a data-id="{{ card['id'] }}" data-email="{{ email }}"
+                               class="btn btn-danger delete-card-button remove-from-cart-button">Remove</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% if ('last_iteration' in card and card['last_iteration']) or (card['table_index'] == 2): %}
+        </div>
+        {% endif %}
+    {% endfor %}
+{% else: %}
+<div id="no-cards-available-message-div" class="row justify-content-center align-items-center text-center">
+    {% if 'database_error_message' in data: %}
+        <h5>{{ data['database_error_message'] }}</h5>
+    {% elif ('has_shopping_cart' in data and not data['has_shopping_cart']) and (data['database_error_message'] == 'No shopping cart found.') %}
+        <h5>No items in shopping cart. Click <a class="link-opacity-100" href="{{ url_for('shop', email = email, shopping_cart_items_total = shopping_cart_items_total) }}">here</a> to add items.</h5>
+    {% else: %}
+        <h5>No cards available. To submit a card, click <a class="link-opacity-100"
+                                                           href="{{ url_for('upload', email = email, shopping_cart_items_total = shopping_cart_items_total) }}">here</a></h5>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock%}

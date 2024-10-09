@@ -37,7 +37,7 @@
             {% if 'user_exists' in validation_status and validation_status['user_exists']: %}
                 <span class="text-danger">This email already exists in the system. Please enter another email.</span>
             {% endif %}
-            {% if 'error_message' in validation_status: %}
+            {% if 'database_error_message' in validation_status: %}
                 <span class="text-danger">{{ validation_status['error_message'] }}</span>
             {% endif %}
         </div>

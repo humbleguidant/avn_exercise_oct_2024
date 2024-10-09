@@ -1,9 +1,8 @@
-import re
 from uuid import uuid4
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from configs.config import get_db
-
+from components.validator import validator
 
 class User:
 
@@ -16,12 +15,12 @@ class User:
 
     def validate_user_input(self, request_input, page):
         data = {'email': request_input[0], 'password': request_input[1]}
-        validate_email = self.validator(data['email'], self.email_regex)
+        validate_email = validator(data['email'], self.email_regex)
         if page == 'register':
-            validate_password = self.validator(data['password'], self.password_regex)
+            validate_password = validator(data['password'], self.password_regex)
             return {'email_validated': validate_email, 'password_validated': validate_password,
                     'email': data['email'], 'password': data['password']}
-        validate_password = self.validator(data['password'], self.whitespace_regex)
+        validate_password = validator(data['password'], self.whitespace_regex)
         return {'email_validated': validate_email, 'password_validated': validate_password,
                 'email': data['email'], 'password': data['password']}
 
@@ -45,6 +44,7 @@ class User:
                 validation_data['error_message'] = 'An error has occurred. Please contact IT services.'
         except:
             validation_data['error_message'] = 'An error has occurred. Please contact IT services.'
+            return validation_data
         validation_data['user_exists'] = user_exists
         return validation_data
 
@@ -60,6 +60,7 @@ class User:
                     validation_data['error_message'] = 'Invalid credentials.'
             except:
                 validation_data['error_message'] = 'An error has occurred. Please contact IT services.'
+                return validation_data
         else:
             validation_data['success'] = False
             validation_data['error_message'] = 'Email does not exist. Please create an account'
@@ -72,8 +73,3 @@ class User:
             return False
         else:
             return True
-
-    # creating a function for input taking input value and regex expression as an argument
-    def validator(self, input_field, regex):
-        # if input field value is valid
-        return re.fullmatch(regex, input_field)

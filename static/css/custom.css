@@ -10,6 +10,10 @@ body{
     margin-top: 10%;
 }
 
+#upload-form{
+    margin-top: 5%;
+}
+
 #greeting-p{
     margin-right: 120px;
     width: 250px;
@@ -18,6 +22,10 @@ body{
 #greeting-li{
     width: 40px;
     margin-right: 250px;
+    margin-top: 2%;
+}
+
+.card-listing{
     margin-top: 2%;
 }
 
@@ -31,4 +39,16 @@ body{
 
 #no-cards-available-message-div{
     margin-top: 15%;
+}
+
+.image-container{
+    height: 300px; object-fit: cover;
+}
+
+.add-to-cart-error-message{
+    display: none;
+}
+
+#shopping-cart-icon{
+    margin-left: 3px;
 }

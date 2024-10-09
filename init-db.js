@@ -1,9 +1,8 @@
 db = db.getSiblingDB("trading_card_shop_db");
 //db.trading_card_shop_tb.drop();
 db.users.drop();
-db.shopping_cart_items();
-db.trading_cards();
-db.trading_card_shop_items();
+db.shopping_cart_items.drop();
+db.trading_cards.drop();
 
 /**db.users.insertMany([
     {

@@ -1,19 +1,37 @@
 {% extends 'home/nav_bar.html' %}
-{% block upload_content %}
-<form method="post">
-    <div id="login-form" class="w-25 margin-top-xl container square-box justify-content-center align-items-center">
+{% block sub_content %}
+<form id="upload-card-form" method="post" enctype="multipart/form-data">
+    <div id="upload-form" class="w-25 margin-top-xl container square-box justify-content-center align-items-center">
         <div class="mb-3">
-            <label for="formFile" class="form-label">Default file input example</label>
-            <input class="form-control" type="file" id="formFile">
+            <label for="form-file" class="form-label">Upload Image</label>
+            <input class="form-control {% if 'file_success' in validation_status and not validation_status['file_success']: %} is-invalid {% endif %}"
+                   type="file" id="form-file" name="fileUpload">
+            {% if 'file_success' in validation_status and not validation_status['file_success']: %}
+                <span class="text-danger">{{ validation_status['file_error_message'] }}</span>
+            {% endif %}
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            <label for="price-input" class="form-label">Price</label>
+            <input type="text" class="form-control {% if 'price_success' in validation_status and not validation_status['price_success']: %} is-invalid {% endif %}"
+                   id="price-input" name="priceInput" placeholder="Enter the price"
+                   value="{% if 'price' in validation_status: %}{{validation_status['price']}}{% endif %}">
+            {% if 'price_success' in validation_status and not validation_status['price_success']: %}
+                <span class="text-danger">{{ validation_status['price_error_message'] }}</span>
+            {% endif %}
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <label for="description-input" class="form-label">Description</label>
+            <textarea class="form-control {% if 'description_success' in validation_status and not validation_status['description_success']: %} is-invalid {% endif %}"
+                      id="description-input" name="descriptionInput" rows="3"
+                      placeholder="Enter description of card...">{% if 'description' in validation_status: %}{{validation_status['description'] }}{%endif%}</textarea>
+            {% if 'description_success' in validation_status and not validation_status['description_success']: %}
+                <span class="text-danger">{{ validation_status['description_error_message'] }}</span>
+            {% endif %}
+            {% if 'database_error_message' in validation_status: %}
+                <span class="text-danger">{{ validation_status['description_error_message'] }}</span>
+            {% endif %}
         </div>
+        <button id="upload-card-btn" type="submit" class="btn btn-primary">Upload</button>
     </div>
 </form>
 {% endblock %}

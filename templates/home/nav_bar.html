@@ -5,25 +5,35 @@
         <!-- Links -->
         <ul class="navbar-nav">
             {% if email: %}
-                <li id="greeting-li" class="nav-item">
-                    <p id="greeting-p">Welcome, {{ email }}</p>
-                </li>
+            <li id="greeting-li" class="nav-item">
+                <p id="greeting-p">Welcome, {{ email }}</p>
+            </li>
             {%endif%}
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('home', email = email) }}">Home</a>
+                <a class="nav-link" href="{{ url_for('home', email = email, shopping_cart_items_total = shopping_cart_items_total) }}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Shop</a>
+                <a class="nav-link" href="{{ url_for('shop', email = email, shopping_cart_items_total = shopping_cart_items_total)}}">Shop</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Upload</a>
+                <a class="nav-link" href="{{ url_for('upload', email = email, shopping_cart_items_total = shopping_cart_items_total) }}">Upload</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
             </li>
+            {% if shopping_cart_items_total > 0: %}
+            <li>
+                <a class="nav-link" href="{{ url_for('shopping_cart', email = email, shopping_cart_items_total = shopping_cart_items_total) }}">
+                    <span id="shopping-cart-icon" style="font-size: 1.3em;">
+                      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        {{ shopping_cart_items_total }}
+                    </span>
+                </a>
+            </li>
+            {% endif %}
+
         </ul>
     </div>
 </nav>
-{% block home_content %}{% endblock %}
-{% block upload_content %}{% endblock %}
+{% block sub_content %}{% endblock %}
 {% endblock %}
