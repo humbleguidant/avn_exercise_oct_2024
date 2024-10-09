@@ -10,5 +10,5 @@ In the application root folder, run 'docker compose build' in your preferred ter
 
 Then run 'docker compose up'.
 
-After docker image is initialized and running, view the application here: http://127.0.0.1:5000/
+After docker container is initialized and running, view the application here: http://127.0.0.1:5000/
 
